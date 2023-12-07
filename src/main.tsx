@@ -7,6 +7,7 @@ import {
   Navigate,
 } from "react-router-dom";
 
+import "./index.css";
 import App from "./App.tsx";
 
 const Posts = React.lazy(() => import("./ui/pages/Posts"));
