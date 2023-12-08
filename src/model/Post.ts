@@ -1,3 +1,5 @@
+import { User } from "./User";
+
 export interface Post {
   id: number;
   userId: string;
@@ -6,3 +8,5 @@ export interface Post {
 }
 
 export type PostWithUserName = Post & { userName: string };
+
+export type PostWithUser = Post & { user: User };
