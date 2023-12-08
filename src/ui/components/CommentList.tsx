@@ -8,6 +8,7 @@ const List = css`
   background-color: white;
   row-gap: 0.5rem;
   padding: 1rem;
+  width: 100%;
 `;
 
 const CommentItem = css`
