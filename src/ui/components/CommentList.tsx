@@ -12,7 +12,6 @@ const List = css`
 
 const CommentItem = css`
   padding: 1rem;
-  padding-top: 1.75rem;
   color: black;
   font-weight: normal;
   border-radius: 8px;
@@ -21,10 +20,18 @@ const CommentItem = css`
   position: relative;
 `;
 
+const CommentBar = css`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+`;
+
+const CommentName = css`
+  font-weight: bold;
+`;
+
 const CommentEmail = css`
-  position: absolute;
-  top: 0.5rem;
-  right: 0.75rem;
   color: #5252c9;
 `;
 
@@ -41,8 +48,11 @@ function CommentList({ postId }: { postId: number }) {
         comments.map((comment) => {
           return (
             <div css={CommentItem} key={comment.id}>
+              <div css={CommentBar}>
+                <label css={CommentName}>{comment.name}</label>
+                <label css={CommentEmail}>{comment.email}</label>
+              </div>
               {comment.body}
-              <label css={CommentEmail}>{comment.email}</label>
             </div>
           );
         })}
