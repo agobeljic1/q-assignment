@@ -26,7 +26,7 @@ const FieldName = css`
   font-weight: bold;
   margin-right: 0.5rem;
 `;
-function PostDetails() {
+function PostDetailsPage() {
   const { id } = useParams();
   const { data: post, loading, error } = useFetchSinglePost(id as string, !id);
 
@@ -67,4 +67,4 @@ function PostDetails() {
   );
 }
 
-export default PostDetails;
+export default PostDetailsPage;

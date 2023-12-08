@@ -10,9 +10,11 @@ import {
 import "./index.css";
 import App from "./App.tsx";
 
-const Posts = React.lazy(() => import("./ui/pages/Posts"));
-const PostDetails = React.lazy(() => import("./ui/pages/PostDetails"));
-const NotFound = React.lazy(() => import("./ui/pages/NotFound"));
+const PostsPage = React.lazy(() => import("./ui/pages/PostsPage.tsx"));
+const PostDetailsPage = React.lazy(
+  () => import("./ui/pages/PostDetailsPage.tsx")
+);
+const NotFoundPage = React.lazy(() => import("./ui/pages/NotFoundPage.tsx"));
 
 function Root() {
   return (
@@ -21,10 +23,10 @@ function Root() {
         <Routes>
           <Route path="/" element={<Navigate to="/posts" replace />} />
           <Route element={<App />}>
-            <Route path="posts" element={<Posts />} />
+            <Route path="posts" element={<PostsPage />} />
             {/* honestly /post/:id should be /posts/:id but you wanted that */}
-            <Route path="post/:id" element={<PostDetails />} />
-            <Route path="/not-found" element={<NotFound />} />
+            <Route path="post/:id" element={<PostDetailsPage />} />
+            <Route path="/not-found" element={<NotFoundPage />} />
           </Route>
           <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>

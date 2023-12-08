@@ -27,7 +27,7 @@ const Input = css`
   border-radius: 0.5rem;
 `;
 
-function Posts() {
+function PostsPage() {
   const [query, setQuery] = React.useState("");
   const debouncedQuery = useDebounce(query);
   const { data: posts, loading, error } = useFetchPosts(debouncedQuery);
@@ -59,4 +59,4 @@ function Posts() {
   );
 }
 
-export default Posts;
+export default PostsPage;
