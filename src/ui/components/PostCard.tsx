@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { PostWithUsername } from "../../model/Post";
+import { PostWithUserName } from "../../model/Post";
 import React from "react";
 import CommentList from "./CommentList";
 
@@ -36,9 +36,10 @@ const Title = css`
   }
 `;
 
-const Username = css`
+const UserName = css`
   width: fit-content;
   color: brown;
+  white-space: nowrap;
 `;
 
 const CommentsBar = css`
@@ -59,7 +60,7 @@ const ToggleCommentsBar = css`
     opacity: 0.6;
   }
 `;
-function PostCard({ post }: { post: PostWithUsername }) {
+function PostCard({ post }: { post: PostWithUserName }) {
   const [showComments, setShowComments] = React.useState(false);
   const toggleCommentsVisibility = () => {
     setShowComments((show) => !show);
@@ -70,7 +71,7 @@ function PostCard({ post }: { post: PostWithUsername }) {
       <div css={Card}>
         <div css={TitleBar}>
           <h2 css={Title}>{post.title}</h2>
-          <label css={Username}>@{post.username}</label>
+          <label css={UserName}>{post.userName}</label>
         </div>
         <p>{post.body}</p>
       </div>

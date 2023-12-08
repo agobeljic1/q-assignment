@@ -1,6 +1,6 @@
 import React from "react";
 import { useFetch } from "./useFetch";
-import { Post, PostWithUsername } from "../model/Post";
+import { Post, PostWithUserName } from "../model/Post";
 import { User } from "../model/User";
 import {
   POSTS_KEY,
@@ -10,7 +10,7 @@ import {
 } from "../shared/constants";
 
 export const useFetchPosts = (query: string = "") => {
-  const [data, setData] = React.useState<PostWithUsername[] | null>(null);
+  const [data, setData] = React.useState<PostWithUserName[] | null>(null);
 
   const {
     data: postsData,
@@ -30,11 +30,11 @@ export const useFetchPosts = (query: string = "") => {
       const user = usersData.find((usr) => usr.id === post.userId);
       return {
         ...post,
-        username: user?.username || "",
+        userName: user?.name || "",
       };
     });
-    const filteredPosts = mappedPosts.filter((post: PostWithUsername) =>
-      post.username.toLowerCase().includes(query.toLowerCase())
+    const filteredPosts = mappedPosts.filter((post: PostWithUserName) =>
+      post.userName.toLowerCase().includes(query.toLowerCase())
     );
 
     setData(filteredPosts);

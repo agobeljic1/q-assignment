@@ -5,4 +5,4 @@ export interface Post {
   body: string;
 }
 
-export type PostWithUsername = Post & { username: string };
+export type PostWithUserName = Post & { userName: string };
