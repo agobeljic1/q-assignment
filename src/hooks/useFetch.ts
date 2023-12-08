@@ -3,17 +3,13 @@ import React from "react";
 // TODO: Add TTL
 const cache: { [key: string]: any } = {};
 
-export const useFetch = <T>(
-  key: string,
-  url: string,
-  disabled: boolean = false
-) => {
+export const useFetch = <T>(key: string, url: string) => {
   const [data, setData] = React.useState<T | null>(null);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string | null>(null);
 
   React.useEffect(() => {
-    if (disabled || data) return;
+    if (data) return;
 
     if (cache[key]) {
       setData(cache[key]);
@@ -41,7 +37,7 @@ export const useFetch = <T>(
     fetchData();
 
     return () => controller.abort();
-  }, [disabled, data]);
+  }, [data]);
 
   return { data, loading, error };
 };

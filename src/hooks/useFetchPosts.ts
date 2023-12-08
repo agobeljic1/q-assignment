@@ -9,32 +9,36 @@ import {
   USERS_URL,
 } from "../shared/constants";
 
-export const useFetchPosts = (disabled: boolean = false) => {
+export const useFetchPosts = (query: string = "") => {
   const [data, setData] = React.useState<PostWithUsername[] | null>(null);
 
   const {
     data: postsData,
     loading: loadingPosts,
     error: errorPosts,
-  } = useFetch<Post[]>(POSTS_KEY, POSTS_URL, disabled);
+  } = useFetch<Post[]>(POSTS_KEY, POSTS_URL);
   const {
     data: usersData,
     loading: loadingUsers,
     error: errorUsers,
-  } = useFetch<User[]>(USERS_KEY, USERS_URL, disabled);
+  } = useFetch<User[]>(USERS_KEY, USERS_URL);
 
   React.useEffect(() => {
     if (!postsData || !usersData) return;
 
-    const mappedPosts = postsData.map((post) => {
+    const mappedPosts = postsData.map((post: Post) => {
       const user = usersData.find((usr) => usr.id === post.userId);
       return {
         ...post,
         username: user?.username || "",
       };
     });
-    setData(mappedPosts);
-  }, [postsData, usersData]);
+    const filteredPosts = mappedPosts.filter((post: PostWithUsername) =>
+      post.username.toLowerCase().includes(query.toLowerCase())
+    );
+
+    setData(filteredPosts);
+  }, [postsData, usersData, query]);
 
   return {
     data,
