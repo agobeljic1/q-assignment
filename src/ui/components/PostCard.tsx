@@ -4,7 +4,7 @@ import React from "react";
 import CommentList from "./CommentList";
 import { Link } from "react-router-dom";
 
-const CardWrapper = css`
+const Card = css`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,7 +14,7 @@ const CardWrapper = css`
   width: 100%;
 `;
 
-const Card = css`
+const CardContent = css`
   padding: 1rem;
   padding-bottom: 0;
   width: 100%;
@@ -72,8 +72,8 @@ function PostCard({ post }: { post: PostWithUserName }) {
   };
 
   return (
-    <div css={CardWrapper}>
-      <div css={Card}>
+    <div css={Card}>
+      <div css={CardContent}>
         <div css={TitleBar}>
           <Link to={`/post/${post.id}`} css={TitleLink}>
             <h2 css={Title}>{post.title}</h2>

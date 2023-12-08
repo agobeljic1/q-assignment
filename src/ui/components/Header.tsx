@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { Link } from "react-router-dom";
 
 const HeaderStyle = css`
   width: 100%;
@@ -8,6 +9,10 @@ const HeaderStyle = css`
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
+`;
+
+const TitleLink = css`
+  text-decoration: none;
 `;
 
 const Title = css`
@@ -21,7 +26,9 @@ const Title = css`
 function Header() {
   return (
     <header css={HeaderStyle}>
-      <label css={Title}>PostsAndComments</label>
+      <Link to="/posts" css={TitleLink}>
+        <label css={Title}>PostsAndComments</label>
+      </Link>
     </header>
   );
 }

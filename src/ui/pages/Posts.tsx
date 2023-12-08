@@ -49,8 +49,8 @@ function Posts() {
 
       <div css={PostList}>
         {loading && <label>Loading</label>}
-        {!loading && error && <label>Error</label>}
-        {!loading && !error && !posts?.length && <label>No results</label>}
+        {!loading && error && <label>{error}</label>}
+        {!loading && !error && !posts?.length && <label>No</label>}
         {!loading &&
           !error &&
           posts?.map((post) => <PostCard key={post.id} post={post} />)}
