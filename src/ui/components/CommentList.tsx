@@ -1,11 +1,5 @@
 import { css } from "@emotion/react";
-import { Comment } from "../../model/Comment";
-
-interface CommentListProps {
-  comments: Comment[] | null;
-  loading: boolean;
-  error: string | null;
-}
+import { useFetchComments } from "../../hooks/useFetchComments";
 
 const List = css`
   display: flex;
@@ -18,14 +12,25 @@ const List = css`
 
 const CommentItem = css`
   padding: 1rem;
+  padding-top: 1.75rem;
   color: black;
   font-weight: normal;
   border-radius: 8px;
   background-color: #e8e8e8;
   width: 100%;
+  position: relative;
 `;
 
-function CommentList({ comments, loading, error }: CommentListProps) {
+const CommentEmail = css`
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  color: #5252c9;
+`;
+
+function CommentList({ postId }: { postId: number }) {
+  const { data: comments, loading, error } = useFetchComments(postId);
+
   return (
     <div css={List}>
       {loading && <label>Loading comments...</label>}
@@ -37,6 +42,7 @@ function CommentList({ comments, loading, error }: CommentListProps) {
           return (
             <div css={CommentItem} key={comment.id}>
               {comment.body}
+              <label css={CommentEmail}>{comment.email}</label>
             </div>
           );
         })}

@@ -1,11 +1,13 @@
 import { useFetch } from "./useFetch";
 import { Comment } from "../model/Comment";
-import { COMMENTS_URL } from "../shared/constants";
+import { COMMENTS_KEY, COMMENTS_URL } from "../shared/constants";
 
 export const useFetchComments = (postId: number, disabled: boolean = false) => {
+  const queryParams = `?postId=${postId}`;
+
   return useFetch<Comment[]>(
-    "comments",
-    `${COMMENTS_URL}?postId=${postId}`,
+    COMMENTS_KEY,
+    `${COMMENTS_URL}${queryParams}`,
     disabled
   );
 };

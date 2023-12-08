@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
 import { PostWithUsername } from "../../model/Post";
 import React from "react";
-import { useFetchComments } from "../../hooks/useFetchComments";
 import CommentList from "./CommentList";
 
 const CardWrapper = css`
@@ -38,6 +37,7 @@ const Title = css`
 
 const Username = css`
   width: fit-content;
+  color: brown;
 `;
 
 const CommentsBar = css`
@@ -60,12 +60,6 @@ const ToggleCommentsBar = css`
 `;
 function PostCard({ post }: { post: PostWithUsername }) {
   const [showComments, setShowComments] = React.useState(false);
-  const {
-    data: comments,
-    loading,
-    error,
-  } = useFetchComments(post.id, !showComments);
-
   const toggleCommentsVisibility = () => {
     setShowComments((show) => !show);
   };
@@ -80,9 +74,7 @@ function PostCard({ post }: { post: PostWithUsername }) {
         <p>{post.body}</p>
       </div>
       <div css={CommentsBar}>
-        {showComments && (
-          <CommentList comments={comments} loading={loading} error={error} />
-        )}
+        {showComments && <CommentList postId={post.id} />}
         <p onClick={toggleCommentsVisibility} css={ToggleCommentsBar}>
           {showComments ? "Hide comments" : "Show comments"}
         </p>

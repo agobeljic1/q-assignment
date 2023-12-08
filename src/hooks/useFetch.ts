@@ -1,12 +1,24 @@
 import React from "react";
 
-export const useFetch = <T>(key: string, url: string, disabled?: boolean) => {
+// TODO: Add TTL
+const cache: { [key: string]: any } = {};
+
+export const useFetch = <T>(
+  key: string,
+  url: string,
+  disabled: boolean = false
+) => {
   const [data, setData] = React.useState<T | null>(null);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     if (disabled || data) return;
+
+    if (cache[key]) {
+      setData(cache[key]);
+      return;
+    }
 
     const controller = new AbortController();
 
@@ -17,6 +29,7 @@ export const useFetch = <T>(key: string, url: string, disabled?: boolean) => {
         .then((res) => res.json())
         .then((res) => {
           setData(res);
+          cache[url] = res;
           setError(null);
         })
         .catch(() => {
