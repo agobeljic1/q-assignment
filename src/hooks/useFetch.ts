@@ -1,11 +1,13 @@
 import React from "react";
 
-export const useFetch = <T>(key: string, url: string) => {
+export const useFetch = <T>(key: string, url: string, disabled?: boolean) => {
   const [data, setData] = React.useState<T | null>(null);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string | null>(null);
 
   React.useEffect(() => {
+    if (disabled || data) return;
+
     const controller = new AbortController();
 
     const fetchData = async () => {
@@ -26,7 +28,7 @@ export const useFetch = <T>(key: string, url: string) => {
     fetchData();
 
     return () => controller.abort();
-  }, []);
+  }, [disabled, data]);
 
   return { data, loading, error };
 };
