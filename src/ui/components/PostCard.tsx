@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 import { PostWithUserName } from "../../model/Post";
 import React from "react";
 import CommentList from "./CommentList";
+import { Link } from "react-router-dom";
 
 const CardWrapper = css`
   display: flex;
@@ -23,6 +24,10 @@ const TitleBar = css`
   display: flex;
   align-items: baseline;
   justify-content: space-between;
+`;
+
+const TitleLink = css`
+  text-decoration: none;
 `;
 
 const Title = css`
@@ -70,7 +75,9 @@ function PostCard({ post }: { post: PostWithUserName }) {
     <div css={CardWrapper}>
       <div css={Card}>
         <div css={TitleBar}>
-          <h2 css={Title}>{post.title}</h2>
+          <Link to={`/post/${post.id}`} css={TitleLink}>
+            <h2 css={Title}>{post.title}</h2>
+          </Link>
           <label css={UserName}>{post.userName}</label>
         </div>
         <p>{post.body}</p>
