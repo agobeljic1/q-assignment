@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import { useParams } from "react-router-dom";
 import { useFetchSinglePost } from "../../hooks/useFetchSinglePost";
+import withLogging from "../../hocs/loggerHoc";
 
 const Card = css`
   background-color: white;
@@ -67,4 +68,4 @@ function PostDetailsPage() {
   );
 }
 
-export default PostDetailsPage;
+export default withLogging(PostDetailsPage, PostDetailsPage.name);

@@ -1,8 +1,9 @@
 import { css } from "@emotion/react";
+import React, { ChangeEvent } from "react";
 import { useFetchPosts } from "../../hooks/useFetchPosts";
 import PostCard from "../components/PostCard";
-import React, { ChangeEvent } from "react";
 import { useDebounce } from "../../hooks/useDebounce";
+import withLogging from "../../hocs/loggerHoc";
 
 const PostList = css`
   display: flex;
@@ -59,4 +60,4 @@ function PostsPage() {
   );
 }
 
-export default PostsPage;
+export default withLogging(PostsPage, PostsPage.name);

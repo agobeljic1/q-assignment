@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
+import withLogging from "../../hocs/loggerHoc";
 
 const HeaderStyle = css`
   width: 100%;
@@ -33,4 +34,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default withLogging(Header, Header.name);

@@ -1,6 +1,7 @@
+import { css } from "@emotion/react";
 import { Outlet } from "react-router-dom";
 import Header from "./ui/components/Header";
-import { css } from "@emotion/react";
+import withLogging from "./hocs/loggerHoc";
 
 const Page = css`
   padding: 1rem;
@@ -17,4 +18,4 @@ function App() {
   );
 }
 
-export default App;
+export default withLogging(App, App.name);

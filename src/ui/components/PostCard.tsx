@@ -1,8 +1,9 @@
 import { css } from "@emotion/react";
-import { PostWithUserName } from "../../model/Post";
 import React from "react";
-import CommentList from "./CommentList";
 import { Link } from "react-router-dom";
+import { PostWithUserName } from "../../model/Post";
+import CommentList from "./CommentList";
+import withLogging from "../../hocs/loggerHoc";
 
 const Card = css`
   display: flex;
@@ -92,4 +93,4 @@ function PostCard({ post }: { post: PostWithUserName }) {
   );
 }
 
-export default PostCard;
+export default withLogging(PostCard, PostCard.name);

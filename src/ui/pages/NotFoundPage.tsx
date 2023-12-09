@@ -1,4 +1,6 @@
-function NotFound() {
+import withLogging from "../../hocs/loggerHoc";
+
+function NotFoundPage() {
   return (
     <>
       <label>Page not found</label>
@@ -6,4 +8,4 @@ function NotFound() {
   );
 }
 
-export default NotFound;
+export default withLogging(NotFoundPage, NotFoundPage.name);

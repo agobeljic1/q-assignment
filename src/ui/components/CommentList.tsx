@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import { useFetchComments } from "../../hooks/useFetchComments";
+import withLogging from "../../hocs/loggerHoc";
 
 const List = css`
   display: flex;
@@ -61,4 +62,4 @@ function CommentList({ postId }: { postId: number }) {
   );
 }
 
-export default CommentList;
+export default withLogging(CommentList, CommentList.name);
