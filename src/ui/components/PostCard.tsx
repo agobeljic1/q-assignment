@@ -68,9 +68,9 @@ const ToggleCommentsBar = css`
 `;
 function PostCard({ post }: { post: PostWithUserName }) {
   const [showComments, setShowComments] = React.useState(false);
-  const toggleCommentsVisibility = () => {
+  const toggleCommentsVisibility = React.useCallback(() => {
     setShowComments((show) => !show);
-  };
+  }, []);
 
   return (
     <div css={Card}>
