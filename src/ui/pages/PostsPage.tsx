@@ -33,9 +33,12 @@ function PostsPage() {
   const debouncedQuery = useDebounce(query);
   const { data: posts, loading, error } = useFetchPosts(debouncedQuery);
 
-  const onChangeQuery = (e: ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-  };
+  const onChangeQuery = React.useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setQuery(e.target.value);
+    },
+    []
+  );
 
   return (
     <div>
@@ -51,7 +54,7 @@ function PostsPage() {
       <div css={PostList}>
         {loading && <label>Loading</label>}
         {!loading && error && <label>{error}</label>}
-        {!loading && !error && !posts?.length && <label>No</label>}
+        {!loading && !error && !posts?.length && <label>No posts</label>}
         {!loading &&
           !error &&
           posts?.map((post) => <PostCard key={post.id} post={post} />)}
