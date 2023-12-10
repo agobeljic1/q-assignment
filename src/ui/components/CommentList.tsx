@@ -54,7 +54,7 @@ function CommentList({ postId }: { postId: number }) {
                 <label css={CommentName}>{comment.name}</label>
                 <label css={CommentEmail}>{comment.email}</label>
               </div>
-              {comment.body}
+              <p>{comment.body}</p>
             </div>
           );
         })}
