@@ -10,6 +10,7 @@ const Card = css`
   width: 100%;
   padding: 1rem;
   height: 100%;
+  border-radius: 0.5rem;
 `;
 
 const CardTitle = css`
@@ -20,13 +21,14 @@ const CardTitle = css`
 const Fields = css`
   display: flex;
   flex-direction: column;
-  row-gap: 0.5rem;
+  gap: 0.5rem;
 `;
 
 const FieldName = css`
   font-weight: bold;
   margin-right: 0.5rem;
 `;
+
 function PostDetailsPage() {
   const { id } = useParams();
   const { data: post, loading, error } = useFetchSinglePost(id as string, !id);

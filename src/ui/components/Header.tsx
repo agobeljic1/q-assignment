@@ -5,9 +5,8 @@ import withLogging from "../../hocs/loggerHoc";
 const HeaderStyle = css`
   width: 100%;
   height: 64px;
-  background-color: #5252c9;
+  background-color: #2b2d42;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 1rem;
 `;
@@ -19,7 +18,7 @@ const TitleLink = css`
 const Title = css`
   color: white;
   font-weight: 500;
-  font-size: 24px;
+  font-size: 1.5rem;
   user-select: none;
   cursor: pointer;
 `;

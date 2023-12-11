@@ -5,6 +5,8 @@ import withLogging from "./hocs/loggerHoc";
 
 const Page = css`
   padding: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
 `;
 
 function App() {

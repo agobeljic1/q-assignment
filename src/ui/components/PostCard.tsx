@@ -8,11 +8,13 @@ import withLogging from "../../hocs/loggerHoc";
 const Card = css`
   display: flex;
   flex-direction: column;
+  gap: 1rem;
   align-items: center;
   background-color: white;
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   width: 100%;
+  border-radius: 0.5rem;
 `;
 
 const CardContent = css`
@@ -23,8 +25,9 @@ const CardContent = css`
 
 const TitleBar = css`
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
   justify-content: space-between;
+  margin-bottom: 1rem;
 `;
 
 const TitleLink = css`
@@ -34,7 +37,7 @@ const TitleLink = css`
 const Title = css`
   margin: 0;
   width: 100%;
-  color: #5252c9;
+  color: #2b2d42;
   cursor: pointer;
 
   &:hover {
@@ -44,7 +47,7 @@ const Title = css`
 
 const UserName = css`
   width: fit-content;
-  color: brown;
+  color: #8d99ae;
   white-space: nowrap;
 `;
 
@@ -54,18 +57,19 @@ const CommentsBar = css`
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  cursor: pointer;
-  user-select: none;
 `;
 
 const ToggleCommentsBar = css`
+  padding: 1rem;
   font-weight: bold;
-  transition: opacity 0.3s;
+  transition: opacity 0.2s;
+  cursor: pointer;
 
   &:hover {
     opacity: 0.6;
   }
 `;
+
 function PostCard({ post }: { post: PostWithUserName }) {
   const [showComments, setShowComments] = React.useState(false);
   const toggleCommentsVisibility = React.useCallback(() => {

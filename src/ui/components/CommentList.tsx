@@ -5,19 +5,17 @@ import withLogging from "../../hocs/loggerHoc";
 const List = css`
   display: flex;
   flex-direction: column;
-  align-items: center;
   background-color: white;
   row-gap: 0.5rem;
   padding: 1rem;
-  width: 100%;
 `;
 
 const CommentItem = css`
   padding: 1rem;
   color: black;
   font-weight: normal;
-  border-radius: 8px;
-  background-color: #e8e8e8;
+  border-radius: 0.5rem;
+  background-color: #f4f4f4;
   width: 100%;
   position: relative;
 `;
@@ -34,7 +32,7 @@ const CommentName = css`
 `;
 
 const CommentEmail = css`
-  color: #5252c9;
+  color: #d90429;
 `;
 
 function CommentList({ postId }: { postId: number }) {
