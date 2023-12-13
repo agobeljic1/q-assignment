@@ -2,7 +2,6 @@ import { renderHook } from "@testing-library/react";
 import { useFetchComments } from "./useFetchComments";
 import {
   COMMENTS_KEY,
-  COMMENTS_URL,
   INFINITE_SCROLL_LIMIT,
   POSTS_URL,
 } from "../shared/constants";

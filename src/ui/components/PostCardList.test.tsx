@@ -1,5 +1,5 @@
 import { describe, it } from "vitest";
-import { render, screen, act, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
 import PostCardList from "./PostCardList";
 import { BrowserRouter } from "react-router-dom";
