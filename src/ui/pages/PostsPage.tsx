@@ -1,15 +1,8 @@
 import { css } from "@emotion/react";
 import React, { ChangeEvent } from "react";
-import { useFetchPosts } from "../../hooks/useFetchPosts";
-import PostCard from "../components/PostCard";
 import { useDebounce } from "../../hooks/useDebounce";
 import withLogging from "../../hocs/loggerHoc";
-
-const PostList = css`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
+import PostCardList from "../components/PostCardList";
 
 const InputWrapper = css`
   display: flex;
@@ -40,7 +33,6 @@ const Input = css`
 function PostsPage() {
   const [query, setQuery] = React.useState("");
   const debouncedQuery = useDebounce(query);
-  const { data: posts, loading, error } = useFetchPosts(debouncedQuery);
 
   const onChangeQuery = React.useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -60,14 +52,7 @@ function PostsPage() {
         />
       </div>
 
-      <div css={PostList}>
-        {loading && <label>Loading</label>}
-        {!loading && error && <label>{error}</label>}
-        {!loading && !error && !posts?.length && <label>No posts</label>}
-        {!loading &&
-          !error &&
-          posts?.map((post) => <PostCard key={post.id} post={post} />)}
-      </div>
+      <PostCardList query={debouncedQuery} />
     </div>
   );
 }

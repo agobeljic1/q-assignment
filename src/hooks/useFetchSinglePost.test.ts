@@ -1,6 +1,5 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import { useFetchSinglePost } from "./useFetchSinglePost";
-import { POSTS_URL, USERS_URL } from "../shared/constants";
 import * as useFetchModule from "./useFetch";
 
 const POST = {
@@ -8,26 +7,15 @@ const POST = {
   id: 1,
   title: "Title",
   body: "Body",
-};
-
-const USER = {
-  id: 1,
-  name: "Name",
-  username: "Username",
-  email: "Email",
-};
-
-const POST_WITH_USER = {
-  ...POST,
-  user: USER,
+  user: {
+    id: 1,
+    name: "Name",
+    username: "Username",
+    email: "Email",
+  },
 };
 
 const MOCK_ERROR = "MockError";
-
-const results: { [key: string]: any } = {
-  [`${POSTS_URL}/1`]: POST,
-  [`${USERS_URL}/1`]: USER,
-};
 
 describe("useFetchSinglePost", () => {
   beforeEach(() => {
@@ -36,7 +24,7 @@ describe("useFetchSinglePost", () => {
       url === MOCK_ERROR
         ? Promise.reject(MOCK_ERROR)
         : Promise.resolve({
-            json: () => results[url],
+            json: () => POST,
           })
     );
   });
@@ -53,7 +41,7 @@ describe("useFetchSinglePost", () => {
 
     await waitFor(() => {
       expect(result.current).toEqual({
-        data: POST_WITH_USER,
+        data: POST,
         error: null,
         loading: false,
       });

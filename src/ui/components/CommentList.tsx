@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
-import { useFetchComments } from "../../hooks/useFetchComments";
 import withLogging from "../../hocs/loggerHoc";
+import { useInfiniteScrollComments } from "../../hooks/useInfiniteScrollComments";
+import React from "react";
 
 const List = css`
   display: flex;
@@ -8,6 +9,8 @@ const List = css`
   background-color: white;
   row-gap: 0.5rem;
   padding: 1rem;
+  max-height: 300px;
+  overflow-y: scroll;
 `;
 
 const CommentItem = css`
@@ -36,14 +39,17 @@ const CommentEmail = css`
 `;
 
 function CommentList({ postId }: { postId: number }) {
-  const { data: comments, loading, error } = useFetchComments(postId);
+  const ref = React.useRef(null);
+  const {
+    data: comments,
+    loading,
+    error,
+  } = useInfiniteScrollComments(postId, ref.current);
 
   return (
-    <div css={List}>
-      {loading && <label>Loading comments...</label>}
+    <div css={List} ref={ref}>
       {!loading && error && <label>{error}</label>}
-      {!loading &&
-        !error &&
+      {!error &&
         !!comments &&
         comments.map((comment) => {
           return (
@@ -56,6 +62,7 @@ function CommentList({ postId }: { postId: number }) {
             </div>
           );
         })}
+      {loading && <label>Loading comments...</label>}
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import { useFetchPosts } from "./useFetchPosts";
-import { POSTS_URL, USERS_URL } from "../shared/constants";
 
 const POSTS = [
   {
@@ -8,32 +7,14 @@ const POSTS = [
     id: 1,
     title: "Title",
     body: "Body",
+    user: {
+      id: 1,
+      name: "Name",
+      username: "Username",
+      email: "Email",
+    },
   },
 ];
-
-const USERS = [
-  {
-    id: 1,
-    name: "Name",
-    username: "Username",
-    email: "Email",
-  },
-];
-
-const POSTS_WITH_USER_NAME = [
-  {
-    userId: 1,
-    id: 1,
-    title: "Title",
-    body: "Body",
-    userName: "Name",
-  },
-];
-
-const results: { [key: string]: any } = {
-  [POSTS_URL]: POSTS,
-  [USERS_URL]: USERS,
-};
 
 const MOCK_ERROR = "MockError";
 const SEARCH_QUERY_SUCCESS = "Nam";
@@ -46,7 +27,7 @@ describe("useFetchPosts", () => {
       url === MOCK_ERROR
         ? Promise.reject(MOCK_ERROR)
         : Promise.resolve({
-            json: () => results[url],
+            json: () => POSTS,
           })
     );
   });
@@ -61,7 +42,7 @@ describe("useFetchPosts", () => {
 
     await waitFor(() => {
       expect(result.current).toEqual({
-        data: POSTS_WITH_USER_NAME,
+        data: POSTS,
         error: null,
         loading: false,
       });
@@ -85,7 +66,7 @@ describe("useFetchPosts", () => {
 
     await waitFor(() => {
       expect(result.current).toEqual({
-        data: POSTS_WITH_USER_NAME,
+        data: POSTS,
         error: null,
         loading: false,
       });

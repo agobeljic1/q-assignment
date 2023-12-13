@@ -1,35 +1,30 @@
 import React from "react";
 
-// TODO: Add TTL
-const cache: { [key: string]: any } = {};
-
 export const useFetch = <T>(
   key: string,
   url: string,
-  disabled: boolean = false
+  disabled: boolean = false,
+  cancellable: boolean = true
 ) => {
   const [data, setData] = React.useState<T | null>(null);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string | null>(null);
 
   React.useEffect(() => {
-    if (data || disabled) return;
+    if (disabled) return;
 
-    if (cache[url]) {
-      setData(cache[url]);
-      return;
+    let controller: AbortController;
+
+    if (cancellable) {
+      controller = new AbortController();
     }
 
-    const controller = new AbortController();
-
     const fetchData = async () => {
-      const signal = controller.signal;
       setLoading(true);
-      fetch(url, { signal })
+      fetch(url, cancellable ? { signal: controller.signal } : {})
         .then((res) => res.json())
         .then((res) => {
           setData(res);
-          cache[url] = res;
           setError(null);
         })
         .catch(() => {
@@ -40,8 +35,10 @@ export const useFetch = <T>(
 
     fetchData();
 
-    return () => controller.abort();
-  }, [data, disabled]);
+    if (cancellable) {
+      return () => controller.abort();
+    }
+  }, [disabled, key, url]);
 
   return { data, loading, error };
 };

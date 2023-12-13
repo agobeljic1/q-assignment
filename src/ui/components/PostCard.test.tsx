@@ -9,7 +9,12 @@ const POST = {
   id: 1,
   title: "Title",
   body: "Body",
-  userName: "Name",
+  user: {
+    id: 1,
+    name: "Name",
+    username: "Username",
+    email: "Email",
+  },
 };
 
 const SHOW_COMMENTS = "Show comments";
@@ -47,7 +52,7 @@ describe("PostCard", () => {
 
     const labelElements = container.querySelectorAll("label");
     expect(labelElements.length).toBe(1);
-    expect(labelElements[0].textContent).toBe(POST.userName);
+    expect(labelElements[0].textContent).toBe(POST.user.name);
   });
 
   it("toggle show/hide comments section", () => {

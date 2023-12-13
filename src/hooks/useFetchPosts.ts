@@ -1,48 +1,41 @@
 import React from "react";
 import { useFetch } from "./useFetch";
-import { Post, PostWithUserName } from "../model/Post";
-import { User } from "../model/User";
+import { PostWithUser } from "../model/Post";
 import {
+  INFINITE_SCROLL_LIMIT,
   POSTS_KEY,
   POSTS_URL,
-  USERS_KEY,
-  USERS_URL,
 } from "../shared/constants";
 
-export const useFetchPosts = (query: string = "") => {
-  const [data, setData] = React.useState<PostWithUserName[] | null>(null);
-
+export const useFetchPosts = (
+  query: string = "",
+  page: number = 1,
+  disabled: boolean = false
+) => {
+  const [data, setData] = React.useState<PostWithUser[] | null>(null);
   const {
-    data: postsData,
-    loading: loadingPosts,
-    error: errorPosts,
-  } = useFetch<Post[]>(POSTS_KEY, POSTS_URL);
-  const {
-    data: usersData,
-    loading: loadingUsers,
-    error: errorUsers,
-  } = useFetch<User[]>(USERS_KEY, USERS_URL);
+    data: posts,
+    loading,
+    error,
+  } = useFetch<PostWithUser[]>(
+    POSTS_KEY,
+    `${POSTS_URL}?_expand=user&_page=${page}&_limit=${INFINITE_SCROLL_LIMIT}`,
+    disabled,
+    false
+  );
 
   React.useEffect(() => {
-    if (!postsData || !usersData) return;
-
-    const mappedPosts = postsData.map((post: Post) => {
-      const user = usersData.find((usr) => usr.id === post.userId);
-      return {
-        ...post,
-        userName: user?.name || "",
-      };
-    });
-    const filteredPosts = mappedPosts.filter((post: PostWithUserName) =>
-      post.userName.toLowerCase().includes(query.toLowerCase())
+    if (!posts) return;
+    const filteredPosts = posts.filter(
+      (post: PostWithUser) =>
+        !!post.user.username.toLowerCase().includes(query.toLowerCase())
     );
-
     setData(filteredPosts);
-  }, [postsData, usersData, query]);
+  }, [posts]);
 
   return {
     data,
-    loading: loadingPosts || loadingUsers,
-    error: errorPosts || errorUsers,
+    loading: !data || loading,
+    error: error,
   };
 };

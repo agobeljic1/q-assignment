@@ -57,14 +57,14 @@ describe("useFetch", () => {
       });
     });
 
-    it("should return data from cache and not trigger the fetch", async () => {
+    it("should return data null", async () => {
       const { result } = renderHook(() => useFetch(MOCK_URL_1, MOCK_URL_1));
       const { data, error, loading } = result.current;
 
-      expect(data).toBe(SUCCESS_DATA1);
+      expect(data).toBe(null);
       expect(error).toBe(null);
-      expect(loading).toBe(false);
-      expect(fetch).toBeCalledTimes(0);
+      expect(loading).toBe(true);
+      expect(fetch).toBeCalledTimes(1);
     });
 
     it("should return the second data without the cache and trigger the fetch", async () => {

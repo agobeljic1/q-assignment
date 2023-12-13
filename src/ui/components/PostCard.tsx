@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import React from "react";
 import { Link } from "react-router-dom";
-import { PostWithUserName } from "../../model/Post";
+import { PostWithUser } from "../../model/Post";
 import CommentList from "./CommentList";
 import withLogging from "../../hocs/loggerHoc";
 
@@ -70,7 +70,7 @@ const ToggleCommentsBar = css`
   }
 `;
 
-function PostCard({ post }: { post: PostWithUserName }) {
+function PostCard({ post }: { post: PostWithUser }) {
   const [showComments, setShowComments] = React.useState(false);
   const toggleCommentsVisibility = React.useCallback(() => {
     setShowComments((show) => !show);
@@ -83,7 +83,7 @@ function PostCard({ post }: { post: PostWithUserName }) {
           <Link to={`/post/${post.id}`} css={TitleLink}>
             <h2 css={Title}>{post.title}</h2>
           </Link>
-          <label css={UserName}>{post.userName}</label>
+          <label css={UserName}>{post.user.name}</label>
         </div>
         <p>{post.body}</p>
       </div>

@@ -7,6 +7,4 @@ export interface Post {
   body: string;
 }
 
-export type PostWithUserName = Post & { userName: string };
-
 export type PostWithUser = Post & { user: User };

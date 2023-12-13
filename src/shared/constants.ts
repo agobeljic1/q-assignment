@@ -11,3 +11,6 @@ export const USERS_URL = `${BASE_URL}/${USERS_KEY}`;
 export const COMMENTS_URL = `${BASE_URL}/${COMMENTS_KEY}`;
 
 export const INPUT_DELAY_MS = 300;
+
+export const INFINITE_SCROLL_OFFSET: number = 200;
+export const INFINITE_SCROLL_LIMIT: number = 10;

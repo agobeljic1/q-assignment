@@ -1,6 +1,11 @@
 import { renderHook } from "@testing-library/react";
 import { useFetchComments } from "./useFetchComments";
-import { COMMENTS_KEY, COMMENTS_URL } from "../shared/constants";
+import {
+  COMMENTS_KEY,
+  COMMENTS_URL,
+  INFINITE_SCROLL_LIMIT,
+  POSTS_URL,
+} from "../shared/constants";
 import { useFetch } from "./useFetch";
 
 const POST_ID = 1;
@@ -17,12 +22,13 @@ describe("useFetchComments", () => {
 
   it("should return the initial values for `data`, error and loading and then return data", async () => {
     renderHook(() => useFetchComments(POST_ID));
-    const queryParams = `?postId=${POST_ID}`;
 
     expect(useFetch).toHaveBeenCalledOnce();
     expect(useFetch).toHaveBeenCalledWith(
       COMMENTS_KEY,
-      `${COMMENTS_URL}${queryParams}`
+      `${POSTS_URL}/${POST_ID}/comments?_page=1&_limit=${INFINITE_SCROLL_LIMIT}`,
+      false,
+      false
     );
   });
 });
