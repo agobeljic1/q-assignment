@@ -2,6 +2,7 @@ import withLogging from "../../hocs/loggerHoc";
 import { css } from "@emotion/react";
 import PostCard from "./PostCard";
 import { useInfiniteScrollPosts } from "../../hooks/useInfiniteScrollPosts";
+import { PostWithUser } from "../../model/Post";
 
 const PostList = css`
   display: flex;
@@ -14,7 +15,7 @@ function PostCardList({ query }: { query: string }) {
 
   return (
     <div css={PostList}>
-      {posts?.map((post: any) => (
+      {posts?.map((post: PostWithUser) => (
         <PostCard key={post.id} post={post} />
       ))}
       {loading && <label>Loading</label>}
